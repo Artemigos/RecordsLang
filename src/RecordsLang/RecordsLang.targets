@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <DslLanguageReference Include="$(MSBuildThisFileDirectory)RecordsLang.dll" Condition="Exists('$(MSBuildThisFileDirectory)RecordsLang.dll')" />
+    <DslLanguageReference Include="$(MSBuildThisFileDirectory)bin\Debug\RecordsLang.dll" Condition="!Exists('$(MSBuildThisFileDirectory)RecordsLang.dll')" />
+    <AvailableItemName Include="Records" />
+    <DslCode Include="@(Records)">
+      <Parser>RecordsParser</Parser>
+      <Template>RecordsTransform</Template>
+    </DslCode>
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <Records>
+      <Generator>MSBuild:Compile</Generator>
+    </Records>
+  </ItemDefinitionGroup>
+</Project>

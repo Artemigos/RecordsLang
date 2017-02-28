@@ -1,0 +1,82 @@
+﻿namespace {{Namespace}}
+{
+    {{#each Records}}
+    {{#if Serializable}}[System.Serializable]{{/if}}
+    public class {{Name}}{{#if AnyDerived}} : {{/if}}{{#if Base}}{{Base}}{{/if}}
+    {
+        {{#if DefaultConstructor}}
+        public {{Name}}()
+        {
+        }
+        {{/if}}
+
+        {{#if DataConstructor}}
+        public {{Name}}({{#each Fields}}{{Type}} {{Name}}{{#unless @last}}, {{/unless}}{{/each}})
+        {
+            {{#each Fields}}
+            this.{{Name}} = {{Name}};
+            {{/each}}
+        }
+        {{/if}}
+
+        {{#if CopyConstructor}}
+        public {{Name}}({{Name}} original)
+        {
+            {{#each Fields}}
+            this.{{Name}} = original.{{Name}};
+            {{/each}}
+        }
+        {{/if}}
+
+        {{#each Fields}}
+        public {{Type}} {{Name}} { get;{{#if ../Set}} set;{{/if}} }
+        {{/each}}
+
+        {{#if Equals}}
+        public override bool Equals(object obj)
+        {
+            var o = obj as {{Name}};
+            if (o == null)
+                return false;
+
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            return {{#each EqualsSelected}}this.{{this}}.Equals(o.{{this}}){{#unless @last}} &&
+                {{/unless}}{{/each}};
+        }
+
+        public static bool operator ==({{Name}} a, {{Name}} b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=({{Name}} a, {{Name}} b)
+        {
+            return !(a == b);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 27;
+                {{#each EqualsSelected}}
+                hash = (hash * 13) + this.{{this}}.GetHashCode();
+                {{/each}}
+                return hash;
+            }
+        }
+        {{/if}}
+
+        {{#each EnabledFlags}}
+        // flag: {{this}}
+        {{/each}}
+
+        {{#each Attributes}}
+        // attr: {{@key}}, value: {{@value}}
+        {{/each}}
+    }
+
+    {{/each}}
+}
