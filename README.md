@@ -118,3 +118,15 @@ The result is what will be generated in code.
 * `+valEquals` flag - controls whether equality for the class will be overriden (this includes `Equals`, `GetHashCode`, `operator ==`, `operator !=`)
 * `valEquals:Field1,Field2` value - same as the equivalent flag, but only specified fields are used for equality comparison. When both the flag and the value are defined, the value takes priority
 * `base:BaseClass` value - allows defining a base class
+
+## Sample records file
+
+```
+ns MyProject.Model;
+def +set +defaultConstructor +dataConstructor +serializable;
+
+proto immutable -set -defaultConstructor +valEquals;
+
+Person(string FirstName, string LastName, int Age);
+immutable Address(string City, string Street, string BuildingNumber);
+```
