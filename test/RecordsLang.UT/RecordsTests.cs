@@ -107,7 +107,7 @@ namespace RecordsLang.UT
         [Test]
         public void ParsesPrototype()
         {
-            var defaultsDef = "proto myProto +flag1 -flag2 someVal:val;";
+            var protoDef = "proto myProto +flag1 -flag2 someVal:val;";
             var expected = new AttributeDef[]
             {
                 new AttributeDef("flag1", true),
@@ -115,7 +115,7 @@ namespace RecordsLang.UT
                 new AttributeDef("someVal", "val")
             };
 
-            var parsed = RecordsParser.Prototype.Parse(defaultsDef);
+            var parsed = RecordsParser.Prototype.Parse(protoDef);
             var attrs = parsed.Attributes.ToArray();
 
             Assert.AreEqual("myProto", parsed.Name);

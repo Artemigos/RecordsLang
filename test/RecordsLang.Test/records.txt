@@ -1,5 +1,7 @@
 ﻿ns RecordsLang.Test;
 
+use System.Data;
+
 def +set +defaultConstructor +dataConstructor;
 
 proto dto +serializable;
@@ -7,4 +9,4 @@ proto model -set +copyConstructor -defaultConstructor +valEquals;
 
 model Model(int Field1, string Field2, long Field3) valEquals:Field1,Field2;
 dto Dto(string Hai);
-Default(int fdsa);
+Default(int fdsa, DataRow src);

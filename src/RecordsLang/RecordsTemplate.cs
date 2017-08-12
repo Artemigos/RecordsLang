@@ -1,6 +1,5 @@
-﻿using HandlebarsDotNet;
-using RecordsLang.OutputModel;
-using System.Text;
+﻿using System.IO;
+using HandlebarsDotNet;
 
 namespace RecordsLang
 {
@@ -12,7 +11,7 @@ namespace RecordsLang
             string templateContent;
 
             using (var str = typeof(RecordsTransformExport).Assembly.GetManifestResourceStream("RecordsLang.template.hbs"))
-            using (var rd = new System.IO.StreamReader(str))
+            using (var rd = new StreamReader(str))
             {
                 templateContent = rd.ReadToEnd();
             }

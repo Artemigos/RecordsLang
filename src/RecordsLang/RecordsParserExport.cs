@@ -1,7 +1,6 @@
-﻿using RecordsLang.OutputModel;
-using Sprache;
+﻿using System;
 using NPolyglot.LanguageDesign;
-using System;
+using Sprache;
 
 namespace RecordsLang
 {

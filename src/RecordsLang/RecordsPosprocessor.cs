@@ -11,6 +11,7 @@ namespace RecordsLang
         public static RecordList Postprocess(this DocumentDef doc)
         {
             var result = new RecordList(doc.Namespace);
+            result.Usings.AddRange(doc.Usings);
 
             foreach (var rec in doc.Records)
             {

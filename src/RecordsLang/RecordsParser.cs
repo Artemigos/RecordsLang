@@ -33,6 +33,9 @@ namespace RecordsLang
         public static Parser<string> NamespaceKeyword =>
             Parse.String("ns").Text().Token();
 
+        public static Parser<string> UseKeyword =>
+            Parse.String("use").Text().Token();
+
         public static Parser<string> DefaultsKeyword =>
             Parse.String("def").Text().Token();
 
@@ -47,6 +50,12 @@ namespace RecordsLang
 
         public static Parser<string> Namespace =>
             from k in NamespaceKeyword
+            from ns in NamespaceCharacter.Many().Text().Token()
+            from t in InstructionTerminator
+            select ns;
+
+        public static Parser<string> Using =>
+            from k in UseKeyword
             from ns in NamespaceCharacter.Many().Text().Token()
             from t in InstructionTerminator
             select ns;
@@ -151,9 +160,10 @@ namespace RecordsLang
 
         public static Parser<DocumentDef> Document =>
             from ns in Namespace.Token()
+            from uses in Using.Token().Many()
             from defs in Defaults.Token()
             from protos in Prototype.Token().Many()
             from records in Record.Token().Many()
-            select new DocumentDef(ns, defs, protos, records);
+            select new DocumentDef(ns, uses, defs, protos, records);
     }
 }

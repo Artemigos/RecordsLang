@@ -7,10 +7,13 @@ namespace RecordsLang.OutputModel
         public RecordList(string ns)
         {
             Namespace = ns;
+            Usings = new List<string>();
             Records = new List<Record>();
         }
 
         public string Namespace { get; }
+
+        public List<string> Usings { get; }
 
         public List<Record> Records { get; }
     }

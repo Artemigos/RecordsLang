@@ -3,6 +3,9 @@
 namespace {{Namespace}}
 {
     using System;
+    {{#each Usings}}
+    using {{this}};
+    {{/each}}
 
     {{#each Records}}
     {{#if Serializable}}[Serializable]{{/if}}
