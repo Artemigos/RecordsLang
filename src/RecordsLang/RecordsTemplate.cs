@@ -11,7 +11,7 @@ namespace RecordsLang
             dynamic d = records;
             string templateContent;
 
-            using (var str = typeof(Records).Assembly.GetManifestResourceStream("RecordsLang.template.hbs"))
+            using (var str = typeof(RecordsTransformExport).Assembly.GetManifestResourceStream("RecordsLang.template.hbs"))
             using (var rd = new System.IO.StreamReader(str))
             {
                 templateContent = rd.ReadToEnd();

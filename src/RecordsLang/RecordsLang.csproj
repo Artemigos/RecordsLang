@@ -59,7 +59,8 @@
     <Compile Include="DslStructure\AttributeDef.cs" />
     <Compile Include="DslStructure\AttributeType.cs" />
     <Compile Include="DslStructure\DocumentDef.cs" />
-    <Compile Include="Records.cs" />
+    <Compile Include="RecordsParserExport.cs" />
+    <Compile Include="RecordsTransformExport.cs" />
     <Compile Include="OutputModel\Field.cs" />
     <Compile Include="DslStructure\FieldDef.cs" />
     <Compile Include="DslStructure\PrototypeDef.cs" />

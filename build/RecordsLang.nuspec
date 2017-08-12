@@ -10,10 +10,10 @@
     <description>DSL allowing to define classes with common patterns in a concise way.</description>
     <copyright>Copyright 2017 Łukasz Klimek</copyright>
     <tags>dsl records npolyglot</tags>
-	
-	<dependencies>
-      <dependency id="NPolyglot.Core" version="[0.2.0-alpha]" />
-	</dependencies>
+
+  <dependencies>
+      <dependency id="NPolyglot.Core" version="[0.2.1-alpha,0.3)" />
+  </dependencies>
   </metadata>
   <files>
     <file src="../src/RecordsLang/RecordsLang.targets" target="build" />

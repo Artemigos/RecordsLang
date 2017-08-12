@@ -5,11 +5,11 @@ using System;
 
 namespace RecordsLang
 {
-    public class Records : ICodedParser, ICodedTransform
+    public class RecordsPaserExport : ICodedParser
     {
-        string ICodedParser.ExportName => "RecordsParser";
+        public string ExportName => "RecordsParser";
 
-        object ICodedParser.Parse(string input)
+        public object Parse(string input)
         {
             var result = RecordsParser.Document.TryParse(input);
             if (result.WasSuccessful)
@@ -19,10 +19,5 @@ namespace RecordsLang
 
             throw new ArgumentException(result.Message);
         }
-
-        string ICodedTransform.ExportName => "RecordsTransform";
-
-        string ICodedTransform.Transform(object data) =>
-            data.Template();
     }
 }
