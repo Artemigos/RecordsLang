@@ -44,7 +44,7 @@ namespace RecordsLang.OutputModel
                 ? Attributes["valEquals"].Split(',')
                 : Fields.Select(x => x.Name).ToArray();
 
-        public new bool Equals =>
+        public bool AddEquals =>
             Attributes.ContainsKey("valEquals") || EnabledFlags.Contains("valEquals");
 
         public bool AnyDerived =>

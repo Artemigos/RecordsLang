@@ -1,15 +1,12 @@
-﻿using RecordsLang.OutputModel;
+﻿using System;
+using RecordsLang.OutputModel;
 using Sprache;
-using NPolyglot.LanguageDesign;
-using System;
 
 namespace RecordsLang
 {
-    public class Records : ICodedParser, ICodedTransform
+    public class Records
     {
-        string ICodedParser.ExportName => "RecordsParser";
-
-        object ICodedParser.Parse(string input)
+        public object Parse(string input)
         {
             var result = RecordsParser.Document.TryParse(input);
             if (result.WasSuccessful)
@@ -20,9 +17,7 @@ namespace RecordsLang
             throw new ArgumentException(result.Message);
         }
 
-        string ICodedTransform.ExportName => "RecordsTransform";
-
-        string ICodedTransform.Transform(object data) =>
+        public string Transform(object data) =>
             data.Template();
     }
 }
