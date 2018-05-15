@@ -1,17 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <DslLanguageReference Include="$(MSBuildThisFileDirectory)RecordsLang.dll" Condition="Exists('$(MSBuildThisFileDirectory)RecordsLang.dll')" />
-    <DslLanguageReference Include="$(MSBuildThisFileDirectory)bin\Debug\RecordsLang.dll" Condition="!Exists('$(MSBuildThisFileDirectory)RecordsLang.dll')" />
-    <AvailableItemName Include="Records" />
-    <DslCode Include="@(Records)">
-      <Parser>RecordsParser</Parser>
-      <Template>RecordsTransform</Template>
-    </DslCode>
-  </ItemGroup>
+
+  <PropertyGroup>
+    <RecordsOutputDir>$(IntermediateOutputPath)_records/</RecordsOutputDir>
+    <RecordsLangDll Condition="'$(RecordsLangDll)' == ''">$(MSBuildThisFileDirectory)../tools/RecordsLang.dll</RecordsLangDll>
+    <RecordsLangDllNorm>&quot;$([MSBuild]::NormalizePath('$(RecordsLangDll)'))&quot;</RecordsLangDllNorm>
+  </PropertyGroup>
+
   <ItemDefinitionGroup>
     <Records>
       <Generator>MSBuild:Compile</Generator>
     </Records>
   </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <Records Include="**\*.records">
+      <OutputFile>$(RecordsOutputDir)%(Identity).cs</OutputFile>
+      <InNormPath>&quot;$([MSBuild]::NormalizePath('%(Identity)'))&quot;</InNormPath>
+      <OutNormPath>&quot;$([MSBuild]::NormalizePath('%(OutputFile)'))&quot;</OutNormPath>
+      <TransformationCommand>dotnet $(RecordsLangDllNorm) %(InNormPath) %(OutNormPath)</TransformationCommand>
+    </Records>
+  </ItemGroup>
+
+  <Target
+    Name="TransformRecords"
+    BeforeTargets="CoreCompile"
+    Condition="'@(Records)'!=''"
+    Inputs="%(Records.Identity)"
+    Outputs="@(Records->'%(OutputFile)')">
+    <Message Importance="high" Text="Running transform for @(Records)" />
+
+    <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('%(Records.OutputFile)'))" />
+    <Exec Command="%(Records.TransformationCommand)" />
+
+    <ItemGroup>
+      <Compile Include="%(Records.OutputFile)" />
+      <FileWrites Include="%(Records.OutputFile)" />
+    </ItemGroup>
+  </Target>
+
 </Project>
