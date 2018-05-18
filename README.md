@@ -1,6 +1,6 @@
 # RecordsLang
 
-This is a language allowing to defing pure data classes in a concise way. It's built on top of [NPolyglot](https://github.com/Artemigos/NPolyglot.Core).
+This is a language allowing to defing pure data classes in a concise way.
 
 ## Installation
 

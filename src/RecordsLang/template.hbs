@@ -32,7 +32,7 @@
         public {{Type}} {{Name}} { get;{{#if ../Set}} set;{{/if}} }
         {{/each}}
 
-        {{#if Equals}}
+        {{#if AddEquals}}
         public override bool Equals(object obj)
         {
             var o = obj as {{Name}};
