@@ -16,8 +16,8 @@
   <ItemGroup>
     <Records Include="**\*.records">
       <OutputFile>$(RecordsOutputDir)%(Identity).cs</OutputFile>
-      <InNormPath>&quot;$([MSBuild]::NormalizePath('%(Identity)'))&quot;</InNormPath>
-      <OutNormPath>&quot;$([MSBuild]::NormalizePath('%(OutputFile)'))&quot;</OutNormPath>
+      <InNormPath>&quot;$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)\%(Identity)'))&quot;</InNormPath>
+      <OutNormPath>&quot;$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)\%(OutputFile)'))&quot;</OutNormPath>
       <TransformationCommand>dotnet $(RecordsLangDllNorm) %(InNormPath) %(OutNormPath)</TransformationCommand>
     </Records>
   </ItemGroup>
@@ -31,7 +31,9 @@
     <Message Importance="high" Text="Running transform for @(Records)" />
 
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('%(Records.OutputFile)'))" />
-    <Exec Command="%(Records.TransformationCommand)" />
+    <Exec
+      Command="%(Records.TransformationCommand)"
+      ContinueOnError="True" />
 
     <ItemGroup>
       <Compile Include="%(Records.OutputFile)" />

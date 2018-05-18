@@ -1,5 +1,6 @@
 ﻿<Project>
 
+  <!-- pulled SDK imports into the project to simulate a package reference -->
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <PropertyGroup>
@@ -7,11 +8,14 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
+  <!-- override DLL path - folder structure is different that in the package -->
   <PropertyGroup>
     <RecordsLangDll>$(MSBuildThisFileDirectory)../../src/RecordsLang/bin/Debug/netcoreapp2.0/RecordsLang.dll</RecordsLangDll>
   </PropertyGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+  <!-- import that will normally happen behind the scenes with package reference -->
   <Import Project="..\..\src\RecordsLang\RecordsLang.targets" />
 
 </Project>
